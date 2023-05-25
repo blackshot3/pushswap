@@ -1,0 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operations.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edupless <edupless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 01:20:09 by edupless          #+#    #+#             */
+/*   Updated: 2023/05/19 15:24:30 by edupless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/push_swap.h"
+
+void ft_ra(t_stack **a, int j)
+{
+    if (!*a || !(*a)->next)
+        return;
+
+    t_stack *first = *a; 
+    *a = first->next; 
+    first->next = NULL; 
+
+    t_stack *last = ft_lstlast2(*a); 
+    last->next = first; 
+
+    if (j == 0)
+        write(1, "ra\n", 3);
+}
+
+
+void	ft_sa(t_stack **a, int j)
+{
+	t_stack	*tmp;
+
+	if (!*a || !((*a)->next))
+		return ;
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = (*a)->next;
+	(*a)->next = tmp;
+	if (j == 0)
+		write(1, "sa\n", 3);
+}
+
+
+void	ft_pa(t_stack **a, t_stack **b, int j)
+{
+	t_stack	*tmp;
+
+	if (!*b)
+		return ;
+	tmp = *a;
+	*a = *b;
+	*b = (*b)->next;
+	(*a)->next = tmp;
+	if (j == 0)
+		write(1, "pa\n", 3);
+}
+
+
+void	ft_rra(t_stack **a, int j)
+{
+	t_stack	*tmp;
+	int		i;
+
+	if (!*a || !(*a)->next)
+		return ;
+	i = 0;
+	tmp = *a;
+	while ((*a)->next)
+	{
+		*a = (*a)->next;
+		i++;
+	}
+	(*a)->next = tmp;
+	while (i > 1)
+	{
+		tmp = tmp->next;
+		i--;
+	}
+	tmp->next = NULL;
+	if (j == 0)
+		write(1, "rra\n", 4);
+}
+
+void ft_ss(t_stack **a, t_stack **b, int j)
+{
+    if (!*a || !(*a)->next || !*b || !(*b)->next)
+        return;
+
+    t_stack *tmp_a = *a;
+    *a = (*a)->next;
+    tmp_a->next = (*a)->next;
+    (*a)->next = tmp_a;
+
+    t_stack *tmp_b = *b;
+    *b = (*b)->next;
+    tmp_b->next = (*b)->next;
+    (*b)->next = tmp_b;
+
+    if (j == 0)
+        write(1, "ss\n", 3);
+}
